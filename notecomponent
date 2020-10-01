@@ -1,0 +1,56 @@
+import React,{useState} from 'react'
+import Input from './login/Input'
+
+
+function Note(props){
+    const [currentNote , setNote] = useState({
+        title:"",
+        note:""
+    });
+
+function handleChange(event){
+    const {name , value} = event.target;
+
+    setNote(pre=>{
+        return{
+            ...pre,
+            [name]:value
+        };
+    });
+}
+
+function addNote(event){
+    props.onCreate(currentNote);
+    event.preventDefault();
+}
+
+    return (
+        <div className="note">
+            <form>
+            <Input 
+            onChange={handleChange} 
+            className="title" 
+            value={currentNote.title} 
+            type = "text" 
+            placeholder="Title here" 
+            name="title">       
+            </Input>
+
+            <textarea 
+            onChange={handleChange} 
+            className="note-msg" 
+            value={currentNote.note} 
+            name="note" 
+            placeholder="Write note here." 
+            cols="18" 
+            rows="5">
+            </textarea>
+
+            <button className="note-delete" type="submit">Delete -</button>
+            <button className="note-submit" onClick={addNote} type="submit" >Add +</button>
+            </form>  
+        </div>
+    )
+}
+
+export default Note;
